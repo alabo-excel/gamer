@@ -48,6 +48,7 @@ body {
     width: 100%;
     position: absolute;
     top: 90vh;
+    display: none;
 }
 
 button {
@@ -59,4 +60,10 @@ button {
 
 #left {
     margin-right: auto;
+}
+
+@media(max-width: 800px) {
+    #controls {
+        display: block;
+    }
 }
