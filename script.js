@@ -1,87 +1,38 @@
-console.log(window.innerWidth)
-console.log(window.innerHeight)
-
+console.log("width",
+    window.innerWidth)
+console.log("height",
+    window.innerHeight)
 
 var hero = {
     top: window.innerHeight - 50,
-    left: window.innerWidth / 2,
+    left: window.innerWidth / 2 - 50,
 };
 
 var missles = []
 var enemies = [{
-        top: window.innerHeight / 10,
-        left: window.innerWidth / 2,
-    }]
-    // var enemies = [
-    //     { left: 150, top: 150 },
+    top: window.innerHeight / 10,
+    left: window.innerWidth / 2,
+}]
 
-//     { left: 200, top: 100 },
-//     { left: 250, top: 150 },
-
-//     { left: 300, top: 100 },
-//     { left: 350, top: 150 },
-
-//     { left: 400, top: 100 },
-//     { left: 450, top: 150 },
-
-//     { left: 500, top: 100 },
-//     { left: 550, top: 150 },
-
-//     { left: 600, top: 100 },
-//     { left: 650, top: 150 },
-
-//     { left: 700, top: 100 },
-//     { left: 750, top: 150 },
-
-//     { left: 800, top: 100 },
-//     { left: 850, top: 150 },
-
-//     { left: 900, top: 100 },
-//     { left: 950, top: 150 },
-
-//     { left: 200, top: 175 },
-//     { left: 250, top: 230 },
-
-//     { left: 300, top: 175 },
-//     { left: 350, top: 230 },
-
-//     { left: 400, top: 175 },
-//     { left: 450, top: 230 },
-
-//     { left: 500, top: 175 },
-//     { left: 550, top: 230 },
-
-//     { left: 600, top: 175 },
-//     { left: 650, top: 230 },
-
-//     { left: 700, top: 175 },
-//     { left: 750, top: 230 },
-
-//     { left: 800, top: 175 },
-//     { left: 850, top: 230 },
-
-//     { left: 900, top: 175 },
-//     { left: 950, top: 230 },
-
-
-//     { left: 200, top: 250 },
-//     { left: 300, top: 250 },
-//     { left: 400, top: 250 },
-//     { left: 500, top: 250 },
-//     { left: 600, top: 250 },
-//     { left: 700, top: 250 },
-//     { left: 800, top: 250 },
-//     { left: 900, top: 250 }
-// ]
+function createPos() {
+    var topPos = Math.floor(Math.random() * window.innerHeight / 10);
+    var leftPos = Math.floor(Math.random() * window.innerWidth - 70);
+    enemies.push({ top: topPos, left: leftPos })
+}
 
 document.onkeydown = function(e) {
+    buttonHero(e)
+}
+
+function buttonHero(e) {
+    mobileControls()
     if (e.keyCode === 37) {
-        if (hero.left <= 5) {} else {
+        if (hero.left <= 10) {} else {
             hero.left = hero.left - 15;
             moveHero()
         }
     } else if (e.keyCode === 39) {
-        if (hero.left >= 1310) {} else {
+        if (hero.left >= window.innerWidth - 65) {} else {
             hero.left = hero.left + 15;
             moveHero()
         }
@@ -89,24 +40,21 @@ document.onkeydown = function(e) {
         missles.push({ left: hero.left + 15, top: hero.top - 20 })
         drawMissles()
     } else if (e.keyCode === 38) {
-        if (hero.top > 0) {
+        if (hero.top > 10) {
             hero.top = hero.top - 15;
             moveHero()
         } else {}
     } else if (e.keyCode === 40) {
-        if (hero.top <= 600) {
+        if (hero.top < window.innerHeight - 50) {
             hero.top = hero.top + 15;
             moveHero()
         } else {}
     }
-
 };
-// 38 40
+
 function moveHero() {
-    console.log(hero.top)
     document.getElementById("hero").style.left = hero.left + "px";
     document.getElementById("hero").style.top = hero.top + "px";
-
 };
 
 function drawMissles() {
@@ -156,6 +104,26 @@ function enemyHit() {
     }
 }
 
+function mobileControls() {
+    document.getElementById('left').addEventListener("click", () => {
+        if (hero.left <= 10) {} else {
+            hero.left = hero.left - 15;
+            moveHero()
+        }
+    })
+    document.getElementById('right').addEventListener("click", () => {
+        if (hero.left >= window.innerWidth - 65) {} else {
+            hero.left = hero.left + 15;
+            moveHero()
+        }
+    })
+
+    document.getElementById('fire').addEventListener("click", () => {
+        missles.push({ left: hero.left + 15, top: hero.top - 20 })
+        drawMissles()
+    })
+}
+
 function gameLoop() {
     setTimeout(gameLoop, 100)
     moveMissle()
@@ -163,5 +131,9 @@ function gameLoop() {
     drawEnemies()
     moveEnemies()
     enemyHit()
+    if (enemies.length <= 20) {
+        createPos()
+    } else {}
 }
+
 gameLoop()
