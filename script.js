@@ -1,7 +1,7 @@
-console.log("width",
-    window.innerWidth)
-console.log("height",
-    window.innerHeight)
+// console.log("width",
+//     window.innerWidth)
+// console.log("height",
+//     window.innerHeight)
 
 var hero = {
     top: window.innerHeight - 50,
@@ -21,11 +21,6 @@ function createPos() {
 }
 
 document.onkeydown = function(e) {
-    buttonHero(e)
-}
-
-function buttonHero(e) {
-    mobileControls()
     if (e.keyCode === 37) {
         if (hero.left <= 10) {} else {
             hero.left = hero.left - 15;
@@ -74,9 +69,7 @@ function moveMissle() {
 function moveEnemies() {
     for (var enemy = 0; enemy < enemies.length; enemy++) {
         enemies[enemy].top = enemies[enemy].top + 1;
-        if (enemies[enemy].top == hero.top) {
-            console.log('you loose')
-        }
+        if (enemies[enemy].top == hero.top) {}
     }
 }
 
@@ -104,25 +97,25 @@ function enemyHit() {
     }
 }
 
-function mobileControls() {
-    document.getElementById('left').addEventListener("click", () => {
-        if (hero.left <= 10) {} else {
-            hero.left = hero.left - 15;
-            moveHero()
-        }
-    })
-    document.getElementById('right').addEventListener("click", () => {
-        if (hero.left >= window.innerWidth - 65) {} else {
-            hero.left = hero.left + 15;
-            moveHero()
-        }
-    })
+// function mobileControls() {
+//     document.getElementById('left').addEventListener("click", () => {
+//         if (hero.left <= 10) {} else {
+//             hero.left = hero.left - 15;
+//             moveHero()
+//         }
+//     })
+//     document.getElementById('right').addEventListener("click", () => {
+//         if (hero.left >= window.innerWidth - 65) {} else {
+//             hero.left = hero.left + 15;
+//             moveHero()
+//         }
+//     })
 
-    document.getElementById('fire').addEventListener("click", () => {
-        missles.push({ left: hero.left + 15, top: hero.top - 20 })
-        drawMissles()
-    })
-}
+//     document.getElementById('fire').addEventListener("click", () => {
+//         missles.push({ left: hero.left + 15, top: hero.top - 20 })
+//         drawMissles()
+//     })
+// }
 
 function gameLoop() {
     setTimeout(gameLoop, 100)
@@ -137,3 +130,8 @@ function gameLoop() {
 }
 
 gameLoop()
+
+
+// function stopLoop() {
+//     clearTimeout(gameLoop());
+// }
